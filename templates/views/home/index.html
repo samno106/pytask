@@ -1,0 +1,13 @@
+{% extends "layout/layout.html" %} {% block content %}
+
+<h2>Home page</h2>
+
+{% for task in tasks %}
+<div class="flex space-x-3">
+  <span>{{task.title}}</span>
+  <span>{{task.description}}</span>
+  <span>{{task.status}}</span>
+  <span>{{ task.created_at|date:"M d, Y"}}</span>
+</div>
+
+{% endfor %} {% endblock %}
