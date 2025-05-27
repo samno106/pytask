@@ -22,7 +22,8 @@
       {% include "./components/loading.html" %}
     </div>
     <div>
-      <button type="button" class=" cursor-pointer flex items-center space-x-2 text-sm font-meduim text-white bg-emerald-500 border border-emerald-500 py-1.5 px-4 rounded-sm hover:bg-emerald-500/85">
+      {% include './components/task-create-modal.html' %}
+      <button type="button" onclick="task_create_modal.showModal()" class="cursor-pointer flex items-center space-x-2 text-sm font-meduim text-white bg-emerald-500 border border-emerald-500 py-1.5 px-4 rounded-sm hover:bg-emerald-500/85">
         <span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -31,19 +32,6 @@
         <span>New Task</span>
       </button>
     </div>
-  </div>
-
-  <div class="w-full py-5">
-    <form class="space-y-3">
-      <div class="form-control w-full">
-        <label class="label">
-          <span class="label-text">Title</span>
-        </label>
-        {{form.title}}
-      </div>
-
-    </form>
-    <!-- {{form}} -->
   </div>
   
   {% include "./components/task-list.html" %}
