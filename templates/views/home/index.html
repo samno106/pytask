@@ -1,13 +1,52 @@
 {% extends "layout/layout.html" %} {% block content %}
 
-<h2>Home page</h2>
+<div>
+  <div class=" flex items-center justify-between py-2 w-full">
+    <div class=" relative ">
+      <span class=" absolute top-2 left-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-gray-600">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>        
+      </span>
+      <input 
+      type="text" 
+      name="search" 
+      hx-get="{% url 'search' %}"
+      hx-trigger="keyup delay:500ms"
+      hx-target="#task-list"
+      hx-indicator="#loading"
+      hx-on::before-request="document.getElementById('task-list').style.opacity=0.5"
+      hx-on::after-request="document.getElementById('task-list').style.opacity=1.0"
+      class=" pr-2 py-1 pl-8 rounded-sm border border-gray-300 placeholder:text-sm" 
+      placeholder="Search..."/>
+      {% include "./components/loading.html" %}
+    </div>
+    <div>
+      <button type="button" class=" cursor-pointer flex items-center space-x-2 text-sm font-meduim text-white bg-emerald-500 border border-emerald-500 py-1.5 px-4 rounded-sm hover:bg-emerald-500/85">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>          
+        </span>
+        <span>New Task</span>
+      </button>
+    </div>
+  </div>
 
-{% for task in tasks %}
-<div class="flex space-x-3">
-  <span>{{task.title}}</span>
-  <span>{{task.description}}</span>
-  <span>{{task.status}}</span>
-  <span>{{ task.created_at|date:"M d, Y"}}</span>
+  <div class="w-full py-5">
+    <form class="space-y-3">
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Title</span>
+        </label>
+        {{form.title}}
+      </div>
+
+    </form>
+    <!-- {{form}} -->
+  </div>
+  
+  {% include "./components/task-list.html" %}
+
 </div>
-
-{% endfor %} {% endblock %}
+ {% endblock %}

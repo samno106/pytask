@@ -8,6 +8,9 @@ class Task(models.Model):
         COMPLETED = "COMPLETED"
     title =models.CharField(max_length=255)
     desc = models.TextField()
-    status= models.CharField(choices=TaskStatus.choices,default=TaskStatus.PENDING)
+    status= models.CharField(max_length=20,choices=TaskStatus.choices,default=TaskStatus.PENDING)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.title}"
    
