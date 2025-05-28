@@ -1,6 +1,6 @@
 {% extends "layout/layout.html" %} {% block content %}
 
-<div>
+<div >
   <div class=" flex items-center justify-between py-2 w-full">
     <div class=" relative ">
       <span class=" absolute top-2 left-2">
@@ -36,8 +36,8 @@
   
   {% include "./components/task-list.html" %}
 
-
 </div>
+
 <script>
   function onOpenModal(id){
     document.getElementById(`task_delete_modal_${id}`).showModal()

@@ -1,0 +1,9 @@
+/* Hide the indicator by default */
+.htmx-indicator {
+    display: none;
+}
+
+/* Show the indicator when htmx-request class is present */
+.htmx-request .htmx-indicator {
+    display: inline-block;
+}
