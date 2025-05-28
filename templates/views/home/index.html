@@ -36,5 +36,14 @@
   
   {% include "./components/task-list.html" %}
 
+
 </div>
+<script>
+  function onOpenModal(id){
+    document.getElementById(`task_delete_modal_${id}`).showModal()
+  }
+  function onCloseModal(id){
+    document.getElementById(`task_delete_modal_${id}`).close()
+  }
+</script>
  {% endblock %}

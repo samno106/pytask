@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Task
 from django.db.models import Q
 from .forms import TaskForm
@@ -28,3 +28,9 @@ def create_task(request):
         response = render(request,'views/home/components/task-item.html',context)
         response['HX-Trigger'] = 'success'
         return response
+
+@require_http_methods(['DELETE'])
+def task_delete(request, id):
+    task = get_object_or_404(Task, id=id)
+    task.delete();
+    return HttpResponse("")

@@ -1,11 +1,14 @@
 <dialog id="task_create_modal" class="modal">
-    <div class="modal-box">
+  <div class="modal-backdrop w-full h-screen fixed" onclick="task_create_modal.close();"></div>  
+  <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Add new task</h3>
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="task_create_modal.close()">✕</button>
+        
         <form hx-post="{% url 'create-task' %}" 
         hx-target="#task-list" 
         hx-swap="afterbegin"
         hx-on:success="task_create_modal.close(); this.reset();"
-        class="space-y-3 w-full">
+        class="space-y-3 w-full ">
             {% csrf_token %}
             <div class="form-control w-full">
               <label class="label mb-2">
@@ -29,8 +32,8 @@
             </div>
       
             <div class="modal-action">
-              <button type="button" class="btn" onclick="task_create_modal.close()">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn px-8 " onclick="task_create_modal.close()">Close</button>
+              <button type="submit" class="btn px-8 text-white border-emerald-500 bg-emerald-500 hover:bg-emerald-500/75">Save</button>
             </div>
           </form>
     </div>

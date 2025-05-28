@@ -11,7 +11,7 @@ class TaskForm(forms.ModelForm):
     
     desc = forms.CharField(
         widget=forms.Textarea(attrs={
-            'class':'textarea w-full',
+            'class':'textarea w-full h-24',
             'placeholder':'Taks desc'
         })
     )
