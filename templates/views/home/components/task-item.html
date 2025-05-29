@@ -1,13 +1,14 @@
 <li class="list-row px-0" id="task-{{task.id}}">
   <div>
     <label>
-      <input type="checkbox" 
-      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-      hx-put="{% url 'task-update-status' task.id %}"
-      hx-target="#task-{{ task.id }}"
-      hx-on::before-request="document.getElementById('task_badge_{{task.id}}').textContent = 'UPDATING...'"
-      hx-swap="outerHTML"
-      class="checkbox"/>
+      <input type="checkbox"
+             hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+             hx-put="{% url 'task-update-status' task.id %}"
+             hx-target="#task-{{ task.id }}"
+             hx-on::before-request="document.getElementById('task_badge_{{task.id}}').textContent = 'UPDATING...'"
+             hx-swap="outerHTML"
+             {% if task.status == 'COMPLETED' %}checked{% endif %}
+             class="checkbox checkbox-success"/>
     </label>
   </div>
   <div>

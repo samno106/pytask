@@ -1,15 +1,15 @@
+{% if task.id %}
 <form
-    class="space-y-3 w-full"
-    hx-post="{% url 'update-task' task.id %}"
-    hx-target="#task-list"
-    hx-swap="afterbegin"
-    hx-on::before-request="document.getElementById('submit-text').textContent = 'Saving...'"
-    hx-on:success="task_create_modal.close(); this.reset(); document.getElementById('submit-text').textContent = 'Save';"
-      >
+    hx-post="{% url 'task-update' task.id %}"
+    hx-target="#task-{{ task.id }}"
+    hx-swap="outerHTML"
+    hx-on::before-request="document.getElementById('update-text').textContent = 'Saving...'"
+    hx-on:update-success="task_update_modal.close(); this.reset(); document.getElementById('update-text').textContent = 'Save';"
+      class="space-y-3 w-full">
         {% csrf_token %}
         <div class="form-control w-full">
             <label class="label mb-2">
-              <span class="label-text">Title</span>
+              <span class="label-text">Title {{task.id}}</span>
             </label>
             {{form.title}}
           </div>
@@ -40,8 +40,9 @@
             type="submit"
             class="btn px-8 text-white border-emerald-500 bg-emerald-500 hover:bg-emerald-500/75 flex items-center space-x-2"
           >
-            <span id="submit-text">Save</span>
+            <span id="update-text">Save</span>
           </button>
   
         </div>
       </form>
+{% endif %}

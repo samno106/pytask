@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Task
@@ -6,6 +7,10 @@ from .forms import TaskForm
 from django.views.decorators.http import require_http_methods
 import time
 # Create your views here.
+def login(request):
+    return render(request, "views/auth/login.html")
+
+@login_required
 def index(request):
     tasks = Task.objects.all().order_by('-created_at')
     context = {"tasks": tasks, 'form':TaskForm()}
@@ -60,13 +65,14 @@ def task_edit(request,id):
     
 @require_http_methods(['POST'])
 def task_update(request, id):
-    task = get_object_or_404(Task, id=id)
-    form = TaskForm(request.POST)
+    time.sleep(0.5)
+    task = get_object_or_404(Task, pk=id)
+    form = TaskForm(request.POST, instance=task)
     if form.is_valid():
-        task = form.save(commit=True)
+        form.save()
         context = {'task':task}
         response = render(request,'views/home/components/task-item.html',context)
-        response['HX-Trigger'] = 'success'
+        response['HX-Trigger'] = 'update-success'
         return response
     return None
 
