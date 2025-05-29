@@ -35,7 +35,6 @@
           hx-target="#task-{{ task.id }}"
           hx-on::before-request="document.getElementById('delete-text').textContent = 'Deleting...'"
           hx-swap="outerHTML"
-
           class="btn btn-sm border-emerald-500 bg-emerald-500 hover:bg-emerald-500/75 text-white"
         >
           <span id="delete-text">Accept</span>

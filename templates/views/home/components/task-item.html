@@ -1,7 +1,13 @@
 <li class="list-row px-0" id="task-{{task.id}}">
   <div>
     <label>
-      <input type="checkbox" class="checkbox" />
+      <input type="checkbox" 
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+      hx-put="{% url 'task-update-status' task.id %}"
+      hx-target="#task-{{ task.id }}"
+      hx-on::before-request="document.getElementById('task_badge_{{task.id}}').textContent = 'UPDATING...'"
+      hx-swap="outerHTML"
+      class="checkbox"/>
     </label>
   </div>
   <div>
@@ -9,6 +15,7 @@
     <div class="text-xs font-meduim opacity-60">{{ task.desc }}</div>
   </div>
   <div
+    id="task_badge_{{task.id}}"
     class="badge badge-soft text-xs font-medium rounded-full {% if task.status == 'PENDING' %} badge-warning {% elif task.status == 'PROGRESS' %} badge-primary {% else %} badge-success {% endif %}"
   >
     {{ task.status }}
@@ -38,6 +45,9 @@
         <span>
           <button
             type="button"
+            hx-get="{% url 'task-edit' task.id %}" 
+            hx-target="#modal-box"
+            onclick="task_update_modal.showModal()"
             class="btn btn-icon text-gray-600 w-5 h-6 border-none bg-white shadow-none hover:text-emerald-500"
           >
             <span>

@@ -18,7 +18,6 @@
       hx-swap="afterbegin"
       hx-on::before-request="document.getElementById('submit-text').textContent = 'Saving...'"
       hx-on:success="task_create_modal.close(); this.reset(); document.getElementById('submit-text').textContent = 'Save';"
-      hx-indicator="#create-loading"
       class="space-y-3 w-full"
     >
       {% csrf_token %}

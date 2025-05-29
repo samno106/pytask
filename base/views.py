@@ -26,7 +26,6 @@ def create_task(request):
     form = TaskForm(request.POST)
     if form.is_valid():
         task = form.save(commit=True)
-
         context = {'task':task}
         response = render(request,'views/home/components/task-item.html',context)
         response['HX-Trigger'] = 'success'
@@ -36,8 +35,39 @@ def create_task(request):
 
 @require_http_methods(['DELETE'])
 def task_delete(request, id):
-   
     time.sleep(0.5)
     task = get_object_or_404(Task, id=id)
     task.delete()
     return HttpResponse("")
+
+@require_http_methods(['PUT'])
+def task_update_status(request,id):
+    time.sleep(0.5)
+    task = get_object_or_404(Task, id=id)
+    task.status = "COMPLETED";
+    task.save()
+    context = {'task':task}
+    response = render(request,'views/home/components/task-item.html',context)
+    return response
+
+@require_http_methods(['GET'])
+def task_edit(request,id):
+    task = get_object_or_404(Task, id=id)
+    form = TaskForm(instance=task)
+    context = {'task':task, 'form':form}
+
+    return render(request, 'views/home/components/form-data.html',context)
+    
+@require_http_methods(['POST'])
+def task_update(request, id):
+    task = get_object_or_404(Task, id=id)
+    form = TaskForm(request.POST)
+    if form.is_valid():
+        task = form.save(commit=True)
+        context = {'task':task}
+        response = render(request,'views/home/components/task-item.html',context)
+        response['HX-Trigger'] = 'success'
+        return response
+    return None
+
+     
