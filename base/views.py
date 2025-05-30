@@ -49,7 +49,11 @@ def task_delete(request, id):
 def task_update_status(request,id):
     time.sleep(0.5)
     task = get_object_or_404(Task, id=id)
-    task.status = "COMPLETED";
+    status = "COMPLETED"
+    if task.status == "COMPLETED":
+        status = "PENDING"
+        
+    task.status = status
     task.save()
     context = {'task':task}
     response = render(request,'views/home/components/task-item.html',context)
